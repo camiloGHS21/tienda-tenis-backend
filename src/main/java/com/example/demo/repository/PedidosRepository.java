@@ -3,12 +3,10 @@ package com.example.demo.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-import com.example.demo.model.Usuarios;
-
+import com.example.demo.model.Pedidos;
 
 
 @RepositoryRestResource
-public interface usuariosRepositorio extends JpaRepository<Usuarios,Long>{
+public interface PedidosRepository extends JpaRepository<Pedidos,Long>{
 
 }
-
