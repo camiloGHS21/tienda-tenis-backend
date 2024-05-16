@@ -35,12 +35,16 @@ public class Pedidos {
 	 private List<Productos> Productos;
 
 
-	public Pedidos(Long id_pedido, double precio_unitario, double precio_total) {
+
+
+	public Pedidos(Long id_pedido, Long cantidad, double precio_unitario, double precio_total,
+			List<Productos> productos) {
 		super();
 		this.id_pedido = id_pedido;
+		this.cantidad = cantidad;
 		this.precio_unitario = precio_unitario;
 		this.precio_total = precio_total;
-	
+		Productos = productos;
 	}
 
 	public Long getId_pedido() {
@@ -67,6 +71,22 @@ public class Pedidos {
 		this.precio_total = precio_total;
 	}
 
+
+	public Long getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(Long cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public List<Productos> getProductos() {
+		return Productos;
+	}
+
+	public void setProductos(List<Productos> productos) {
+		Productos = productos;
+	}
 
 	public Pedidos() {
 		super();

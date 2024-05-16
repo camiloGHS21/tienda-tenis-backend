@@ -1,8 +1,6 @@
 package com.example.demo.controller;
 
-
 import java.util.List;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,53 +12,53 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.model.Pedidos;
-import com.example.demo.repository.PedidosRepository;
-
+import com.example.demo.model.Productos;
+import com.example.demo.repository.ProductosRepository;
 
 @RestController
-@RequestMapping("/api/pedidos")
+@RequestMapping("/api/productos")
 @CrossOrigin(origins="http://localhost:5173/")
-public class PedidosController {
-
+public class ProductosController {
+	
 	@Autowired
-	 private  PedidosRepository PedidoRepositorio;
+	 private  ProductosRepository ProductoRepositorio;
 	  
 	  @GetMapping("/ver_todos")
-	  public List<Pedidos> VerTodosLosPedidos(){
-		  return PedidoRepositorio.findAll();
+	  public List<Productos> VerTodosLosProductos(){
+		  return ProductoRepositorio.findAll();
 	  }
 	  
 	  @PostMapping("/crear")
-	  public void CrearPedido(@RequestBody Pedidos pedido) { 
-	      PedidoRepositorio.save(pedido);
-	      
+	  public void  CrearProducto(@RequestBody Productos producto) {
+		  ProductoRepositorio.save(producto);
 	  }
 	  
 	  @PostMapping("/actualizar")
-	  public ResponseEntity<String> ActualizarPedido(@RequestBody Pedidos pedido) {
+	  public ResponseEntity<String> ActualizarProducto(@RequestBody Productos producto) {
 	      // Verificar si el pedido existe en la base de datos
-	      if (!PedidoRepositorio.existsById(pedido.getId_pedido())) {
+	      if (!ProductoRepositorio.existsById(producto.getId_producto())) {
 	          return ResponseEntity.notFound().build(); // Devolver respuesta 404 si el pedido no existe
 	      }
 	      
 	      // El pedido existe, por lo que procedemos a actualizarlo
-	      PedidoRepositorio.save(pedido);
+	      ProductoRepositorio.save(producto);
 	      
-	      return ResponseEntity.ok("Pedido actualizado correctamente");
+	      return ResponseEntity.ok("Producto actualizado correctamente");
 	  }
 	  
 	  @PostMapping("/eliminar")
-	  public ResponseEntity<String> EliminarPedido(@RequestBody Pedidos pedido) {
+	  public ResponseEntity<String> EliminarPedido(@RequestBody Productos producto) {
 	     try {
 	    	 
-		      PedidoRepositorio.delete(pedido);
-		      return ResponseEntity.ok("Pedido eliminado correctamente");
+	    	 ProductoRepositorio.delete(producto);
+		      return ResponseEntity.ok("Producto eliminado correctamente");
 		} catch (Exception e) {
-		  return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al Eliminar pedido "+e.getMessage());
+		  return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al Eliminar producto "+e.getMessage());
 		}
 	      
 	      
 	  }
+	  
+	  
 
 }
