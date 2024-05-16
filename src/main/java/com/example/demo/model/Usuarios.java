@@ -18,13 +18,16 @@ public class Usuarios {
  private String nombre;
 
  @Column(nullable = false)
- private String apelllidos;
+ private String apellidos;
 
  @Column(nullable = false)
  private Long telefono;
 
  @Column(nullable = false)
  private Long edad;
+ 
+ @Column(nullable = false)
+ private String password;
 
  @Column(nullable = false)
  private String tipo_de_usuario;
@@ -54,15 +57,42 @@ public Usuarios() {
 }
 
 
-public Usuarios(Long id_usuario, String nombre, String apelllidos, Long telefono, Long edad, String tipo_de_usuario)
-       {
-    this.id_usuario = id_usuario;
-    this.nombre = nombre;
-    this.apelllidos = apelllidos;
-    this.telefono = telefono;
-    this.edad = edad;
-    this.tipo_de_usuario = tipo_de_usuario;
-    
+
+
+
+
+
+public Usuarios(Long id_usuario, String nombre, String apellidos, Long telefono, Long edad, String password,
+		String tipo_de_usuario, List<Pedidos> pedidos) {
+	super();
+	this.id_usuario = id_usuario;
+	this.nombre = nombre;
+	this.apellidos = apellidos;
+	this.telefono = telefono;
+	this.edad = edad;
+	this.password = password;
+	this.tipo_de_usuario = tipo_de_usuario;
+	Pedidos = pedidos;
+}
+
+
+public String getPassword() {
+	return password;
+}
+
+
+public void setPassword(String password) {
+	this.password = password;
+}
+
+
+public List<Pedidos> getPedidos() {
+	return Pedidos;
+}
+
+
+public void setPedidos(List<Pedidos> pedidos) {
+	Pedidos = pedidos;
 }
 
 
@@ -72,12 +102,12 @@ public void setNombre(String nombre) {
 
 
 public String getApelllidos() {
-    return apelllidos;
+    return apellidos;
 }
 
 
 public void setApelllidos(String apelllidos) {
-    this.apelllidos = apelllidos;
+    this.apellidos = apelllidos;
 }
 
 

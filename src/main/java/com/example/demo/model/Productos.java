@@ -57,14 +57,29 @@ public void setImagen(String imagen) {
 	this.imagen = imagen;
 }
 
-public Productos(Long id_producto, String nombre, Long talla, String color,
-		String imagen) {
+
+public String getDescripcion() {
+	return descripcion;
+}
+public void setDescripcion(String descripcion) {
+	this.descripcion = descripcion;
+}
+public double getPrecio() {
+	return precio;
+}
+public void setPrecio(double precio) {
+	this.precio = precio;
+}
+public Productos(Long id_producto, String nombre, Long talla, String color, String imagen, String descripcion,
+		double precio) {
 	super();
 	this.id_producto = id_producto;
 	this.nombre = nombre;
 	this.talla = talla;
 	this.color = color;
 	this.imagen = imagen;
+	this.descripcion = descripcion;
+	this.precio = precio;
 }
 public Productos() {
 	super();

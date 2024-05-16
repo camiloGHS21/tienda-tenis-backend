@@ -7,8 +7,11 @@ import com.example.demo.model.Usuarios;
 
 
 
+
 @RepositoryRestResource
 public interface UsuariosRepository extends JpaRepository<Usuarios,Long>{
+
+	Usuarios findByNombre(String username);
 
 }
 
