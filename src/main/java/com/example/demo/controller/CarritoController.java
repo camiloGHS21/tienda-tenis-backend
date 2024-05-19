@@ -18,6 +18,7 @@ import com.example.demo.model.Carrito;
 import com.example.demo.repository.CarritoRepository;
 
 
+
 @RestController
 @RequestMapping("/api/cart")
 @CrossOrigin(origins = "http://localhost:5173/")
@@ -25,15 +26,19 @@ public class CarritoController {
 
     @Autowired
     private CarritoRepository repository;
+    
+   
 
     @GetMapping("/items")
     public List<Carrito> getAllItems() {
         return repository.findAll();
     }
+   
 
     @PostMapping("/add")
     public ResponseEntity<Carrito> addItem(@RequestBody Carrito item) {
         try {
+      
         	Carrito savedItem = repository.save(item);
             return ResponseEntity.ok(savedItem);
         } catch (Exception e) {

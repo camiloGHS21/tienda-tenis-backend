@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,6 +24,7 @@ public class Productos {
  private String descripcion;
  @Column(nullable = false)
  private double precio;
+
 
  
 public Long getId_producto() {
@@ -70,6 +73,11 @@ public double getPrecio() {
 public void setPrecio(double precio) {
 	this.precio = precio;
 }
+
+
+
+
+
 public Productos(Long id_producto, String nombre, Long talla, String color, String imagen, String descripcion,
 		double precio) {
 	super();

@@ -65,7 +65,6 @@ public class ProductosController {
 	        Productos productoOptional = ProductoRepositorio.findByNombre(nombre);
 	       
 	            return productoOptional;
-	       
 	    }
 	  
 
