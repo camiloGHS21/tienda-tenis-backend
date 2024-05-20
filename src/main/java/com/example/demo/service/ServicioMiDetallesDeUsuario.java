@@ -26,12 +26,12 @@ public class ServicioMiDetallesDeUsuario implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuarios user = repositorioAdministrador.findByNombre(username);
+        Usuarios user = repositorioAdministrador.findByEmail(username);
         if (user == null) {
             throw new UsernameNotFoundException("Usuario no encontrado");
         }
         return org.springframework.security.core.userdetails.User
-                .withUsername(user.getNombre())    
+                .withUsername(user.getEmail())    
                 .password(user.getPassword()) 
                 .authorities(Collections.emptyList())
                 .build();
@@ -39,7 +39,7 @@ public class ServicioMiDetallesDeUsuario implements UserDetailsService {
     
     public Usuarios crearAdministrador(String username, String password,String tipo) {
     	Usuarios usuario = new Usuarios();
-        usuario.setNombre(username);
+        usuario.setEmail(username);
         usuario.setTipo_de_usuario(tipo);
 
         usuario.setPassword( passwordEncoder.encode(password));

@@ -31,7 +31,7 @@ public class TenisBackendApplication implements CommandLineRunner{
 	      String password = "1234";
 
 	      Usuarios usuario = userDetailsService.crearAdministrador(username, password,"ADMIN");
-	      System.out.println("Usuario creado: " + usuario.getNombre());
+	      System.out.println("Usuario creado: " + usuario.getEmail());
 		
 	}
 

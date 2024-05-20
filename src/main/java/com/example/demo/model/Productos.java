@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -25,7 +27,8 @@ public class Productos {
  @Column(nullable = false)
  private double precio;
 
-
+ @ManyToMany(mappedBy = "productos")
+ private List<Carrito> carritos;
  
 public Long getId_producto() {
 	return id_producto;
@@ -73,9 +76,6 @@ public double getPrecio() {
 public void setPrecio(double precio) {
 	this.precio = precio;
 }
-
-
-
 
 
 public Productos(Long id_producto, String nombre, Long talla, String color, String imagen, String descripcion,

@@ -10,21 +10,14 @@ import lombok.Data;
 @Entity
 @Table(name = "usuarios")
 public class Usuarios {
+	
 @Id
- @GeneratedValue(strategy = GenerationType.IDENTITY)
- private Long id_usuario;
+@GeneratedValue(strategy = GenerationType.SEQUENCE)
+private Long id_usuario;
 
- @Column(nullable = false)
- private String nombre;
 
- @Column(nullable = false)
- private String apellidos;
-
- @Column(nullable = false)
- private Long telefono;
-
- @Column(nullable = false)
- private Long edad;
+@Column(nullable = false)
+private String email;
  
  @Column(nullable = false)
  private String password;
@@ -34,6 +27,12 @@ public class Usuarios {
 
  @OneToMany(mappedBy = "id_pedido", cascade = CascadeType.ALL)
  private List<Pedidos> Pedidos;
+
+
+
+ @OneToOne(cascade = CascadeType.ALL)
+ @JoinColumn(name = "id_usuarioInfo", referencedColumnName = "id_usuarioInfo")
+ private UsuariosInfo usuariosInfo;
 
 
  public Long getId_usuario() {
@@ -47,8 +46,13 @@ public void setId_usuario(Long id_usuario) {
 }
 
 
-public String getNombre() {
-    return nombre;
+public UsuariosInfo getUsuariosInfo() {
+	return usuariosInfo;
+}
+
+
+public void setUsuariosInfo(UsuariosInfo usuariosInfo) {
+	this.usuariosInfo = usuariosInfo;
 }
 
 
@@ -56,23 +60,25 @@ public Usuarios() {
     super();
 }
 
-
-
-
-
-
-
-public Usuarios(Long id_usuario, String nombre, String apellidos, Long telefono, Long edad, String password,
-		String tipo_de_usuario, List<Pedidos> pedidos) {
+public Usuarios(Long id_usuario, String email, String password, String tipo_de_usuario,
+		List<com.example.demo.model.Pedidos> pedidos, UsuariosInfo usuariosInfo) {
 	super();
 	this.id_usuario = id_usuario;
-	this.nombre = nombre;
-	this.apellidos = apellidos;
-	this.telefono = telefono;
-	this.edad = edad;
+	this.email = email;
 	this.password = password;
 	this.tipo_de_usuario = tipo_de_usuario;
 	Pedidos = pedidos;
+	this.usuariosInfo = usuariosInfo;
+}
+
+
+public String getEmail() {
+	return email;
+}
+
+
+public void setEmail(String email) {
+	this.email = email;
 }
 
 
@@ -96,39 +102,6 @@ public void setPedidos(List<Pedidos> pedidos) {
 }
 
 
-public void setNombre(String nombre) {
-    this.nombre = nombre;
-}
-
-
-public String getApelllidos() {
-    return apellidos;
-}
-
-
-public void setApelllidos(String apelllidos) {
-    this.apellidos = apelllidos;
-}
-
-
-public Long getTelefono() {
-    return telefono;
-}
-
-
-public void setTelefono(Long telefono) {
-    this.telefono = telefono;
-}
-
-
-public Long getEdad() {
-    return edad;
-}
-
-
-public void setEdad(Long edad) {
-    this.edad = edad;
-}
 
 
 public String getTipo_de_usuario() {
@@ -139,10 +112,6 @@ public String getTipo_de_usuario() {
 public void setTipo_de_usuario(String tipo_de_usuario) {
     this.tipo_de_usuario = tipo_de_usuario;
 }
-
-
-
-
 
 
 }

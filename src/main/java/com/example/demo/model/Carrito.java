@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 
 
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,7 +11,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import lombok.Data;
@@ -29,12 +33,17 @@ public class Carrito {
     @Column(nullable = false)
     private Long total;
      
-    
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_producto", referencedColumnName = "id_producto")
-    private Productos producto;
+    @ManyToMany
+    @JoinTable(
+        name = "carrito_productos",
+        joinColumns = @JoinColumn(name = "id_carrito"),
+        inverseJoinColumns = @JoinColumn(name = "id_producto")
+    )
+    private List<Productos> productos;
 
-    public Long getId_carrito() {
+ 
+
+	public Long getId_carrito() {
         return id_carrito;
     }
 
@@ -58,25 +67,25 @@ public class Carrito {
         this.total = total;
     }
 
-	
 
 
-	public Productos getProducto() {
-		return producto;
+
+
+	public List<Productos> getProductos() {
+		return productos;
 	}
 
-	public void setProducto(Productos producto) {
-		this.producto = producto;
+	public void setProductos(List<Productos> productos) {
+		this.productos = productos;
 	}
-
+	
 	
 
-	public Carrito(long cantidad_de_productos, Long total, Productos producto) {
+	public Carrito(long cantidad_de_productos, Long total, List<Productos> productos) {
 		super();
-	
 		this.cantidad_de_productos = cantidad_de_productos;
 		this.total = total;
-		this.producto = producto;
+		this.productos = productos;
 	}
 
 	public Carrito() {
