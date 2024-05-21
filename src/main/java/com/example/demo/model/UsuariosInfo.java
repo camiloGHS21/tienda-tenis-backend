@@ -22,11 +22,11 @@ public class UsuariosInfo {
 	 @Column(nullable = false)
 	 private String apellidos;
 
-	 @Column(nullable = false)
+	
 	 private Long telefono;
 
-	 @Column(nullable = false)
-	 private Long edad;
+
+	 private Integer edad;
 
 	public String getNombre() {
 		return nombre;
@@ -52,15 +52,15 @@ public class UsuariosInfo {
 		this.telefono = telefono;
 	}
 
-	public Long getEdad() {
+	public Integer getEdad() {
 		return edad;
 	}
 
-	public void setEdad(Long edad) {
+	public void setEdad(Integer edad) {
 		this.edad = edad;
 	}
 
-	public UsuariosInfo(String nombre, String apellidos, Long telefono, Long edad) {
+	public UsuariosInfo(String nombre, String apellidos,Long telefono,Integer edad) {
 		super();
 		this.nombre = nombre;
 		this.apellidos = apellidos;

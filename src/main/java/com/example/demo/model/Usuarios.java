@@ -34,6 +34,10 @@ private String email;
  @OneToOne(cascade = CascadeType.ALL)
  @JoinColumn(name = "id_usuarioInfo", referencedColumnName = "id_usuarioInfo")
  private UsuariosInfo usuariosInfo;
+ 
+ @OneToOne(cascade = CascadeType.ALL)
+ @JoinColumn(name = "id_carrito", referencedColumnName = "id_carrito")
+ private Carrito carrito;
 
 
  public Long getId_usuario() {
@@ -57,19 +61,33 @@ public void setUsuariosInfo(UsuariosInfo usuariosInfo) {
 }
 
 
+public Carrito getCarrito() {
+	return carrito;
+}
+
+
+public void setCarrito(Carrito carrito) {
+	this.carrito = carrito;
+}
+
+
 public Usuarios() {
     super();
 }
 
-public Usuarios(Long id_usuario, String email, String password, String tipo_de_usuario,
-		List<com.example.demo.model.Pedidos> pedidos, UsuariosInfo usuariosInfo) {
+
+
+
+public Usuarios(@Email(message = "Por favor, introduce una dirección de correo electrónico válida") String email,
+		String password, String tipo_de_usuario, List<com.example.demo.model.Pedidos> pedidos,
+		UsuariosInfo usuariosInfo, Carrito carrito) {
 	super();
-	this.id_usuario = id_usuario;
 	this.email = email;
 	this.password = password;
 	this.tipo_de_usuario = tipo_de_usuario;
 	Pedidos = pedidos;
 	this.usuariosInfo = usuariosInfo;
+	this.carrito = carrito;
 }
 
 

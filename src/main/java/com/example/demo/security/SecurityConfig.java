@@ -2,30 +2,24 @@ package com.example.demo.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-
-
-
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
-
+public class SecurityConfig  {
 	
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    	
-    	http
+	   @Bean
+	    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
         .csrf().disable() // Deshabilitar CSRF si estás trabajando con APIs
         .authorizeHttpRequests(authorize -> authorize
             .requestMatchers(
@@ -35,19 +29,13 @@ public class SecurityConfig {
             		).permitAll()
             .anyRequest().authenticated()
         )
-        .httpBasic(); // Habilita la autenticación básica
-
+            .logout(logout -> logout
+                .logoutUrl("/logout")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID") // Elimina la cookie de sesión al cerrar sesión
+                .permitAll() // Permitir acceso al endpoint de logout sin autenticación
+            ).httpBasic();
         return http.build();
     }
 
-    @Bean
-    public org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration authenticationConfiguration() {
-        return new org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration();
-    }
-    // Bean para exponer el AuthenticationManager
-    @Bean
-    public org.springframework.security.authentication.AuthenticationManager authenticationManager(
-            org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
 }

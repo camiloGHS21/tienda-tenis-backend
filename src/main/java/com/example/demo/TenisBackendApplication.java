@@ -27,7 +27,7 @@ public class TenisBackendApplication implements CommandLineRunner{
 	}
 
 	public void crearAdministrador() {
-		  String username = "camilo";
+		  String username = "camiloghs21@gmail.com";
 	      String password = "1234";
 
 	      Usuarios usuario = userDetailsService.crearAdministrador(username, password,"ADMIN");

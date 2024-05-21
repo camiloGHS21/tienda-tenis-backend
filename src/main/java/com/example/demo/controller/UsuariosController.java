@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,11 +40,23 @@ public class UsuariosController {
 
 
 
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder; // Inyecta el codificador de contraseñas
+
     @PostMapping("/guardar")
     public ResponseEntity<Usuarios> guardarUsuarios(@RequestBody Usuarios usuario) {
         try {
-            Usuarios savedUsuario = repositorio.save(usuario);
-            return ResponseEntity.ok(savedUsuario);
+            // Cifra la contraseña antes de guardarla
+            String passwordCifrada = passwordEncoder.encode(usuario.getPassword());
+            usuario.setTipo_de_usuario("USER");
+            usuario.setPassword(passwordCifrada);
+            
+            // Guarda el usuario con la contraseña cifrada
+            Usuarios usuarioGuardado = repositorio.save(usuario);
+            
+            // Retorna el usuario guardado con contraseña cifrada
+            return ResponseEntity.ok(usuarioGuardado);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
