@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Carrito;
@@ -89,7 +90,41 @@ public class CarritoController {
         }
     }
 
+    @PatchMapping("/remove_product")
+    public ResponseEntity<String> removeProduct(@RequestParam Long carritoId, @RequestParam Long productoId) {
+        try {
+            // Recibe el carrito actualizado del cuerpo de la solicitud
+            Carrito carritoActualizado = repository.findById(carritoId).orElse(null);
 
+            if (carritoActualizado == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Carrito no encontrado");
+            }
+
+            // Verifica si el producto está en el carrito
+            List<Productos> productosEnCarrito = carritoActualizado.getProductos();
+            boolean productoEncontrado = false;
+            for (Productos producto : productosEnCarrito) {
+                if (producto.getId_producto() == productoId) {
+                    // Elimina el producto del carrito
+                    productosEnCarrito.remove(producto);
+                    productoEncontrado = true;
+                    break;
+                }
+            }
+
+            if (!productoEncontrado) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El producto no está en el carrito");
+            }
+
+            // Guarda el carrito actualizado en el repositorio
+            repository.save(carritoActualizado);
+
+            return ResponseEntity.ok("Producto eliminado del carrito exitosamente");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al actualizar el carrito: " + e.getMessage());
+        }
+    }
+    
     @DeleteMapping("/remove")
     public ResponseEntity<String> removeItem(@RequestBody Long itemId) {
         try {

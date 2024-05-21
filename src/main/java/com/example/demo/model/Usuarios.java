@@ -4,6 +4,7 @@ package com.example.demo.model;
 import java.util.List;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.Data;
 
 @Data
@@ -15,7 +16,7 @@ public class Usuarios {
 @GeneratedValue(strategy = GenerationType.SEQUENCE)
 private Long id_usuario;
 
-
+@Email(message = "Por favor, introduce una dirección de correo electrónico válida")
 @Column(nullable = false)
 private String email;
  
