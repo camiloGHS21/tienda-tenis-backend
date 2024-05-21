@@ -11,14 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins="http://localhost:5173/")
 public class LoginController {
 	   @PostMapping()
-	    public String login() {
-	        // Perform login logic here
-	        // For example, you could check if the email and password are valid
-	        
-	       
-	         
-	            return"Login successful";
-	       
+	    public void login() {       
 	    }
 }
 	    

@@ -31,11 +31,9 @@ public class UsuariosController {
         return repositorio.findAll();
     }
 
-    @PostMapping("/buscar_id")
-    public ResponseEntity<Usuarios> verUsuarios(@RequestBody Long id) {
-        return repositorio.findById(id)
-                .map(usuario -> ResponseEntity.ok(usuario))
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    @PostMapping("/buscar_email")
+    public Usuarios verUsuarios(@RequestBody String email) {
+        return repositorio.findByEmail(email);
     }
 
 
