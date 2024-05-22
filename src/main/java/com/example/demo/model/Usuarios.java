@@ -16,8 +16,9 @@ public class Usuarios {
 @GeneratedValue(strategy = GenerationType.SEQUENCE)
 private Long id_usuario;
 
+
 @Email(message = "Por favor, introduce una dirección de correo electrónico válida")
-@Column(nullable = false)
+@Column(nullable = false,unique=true)
 private String email;
  
  @Column(nullable = false)

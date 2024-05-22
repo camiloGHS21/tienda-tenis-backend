@@ -32,9 +32,9 @@ public class CarritoController {
     
    
 
-    @GetMapping("/items")
-    public Optional<Carrito> getAllItems() {
-        return repository.findById((long) 3);
+    @PostMapping("/items")
+    public Optional<Carrito> getAllItems(@RequestBody Long id) {
+        return repository.findById(id);
     }
    
 
