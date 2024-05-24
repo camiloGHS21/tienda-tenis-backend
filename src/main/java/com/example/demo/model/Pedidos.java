@@ -10,6 +10,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -20,32 +24,56 @@ import lombok.Data;
 public class Pedidos {
 
 	  @Id
-	  @GeneratedValue(strategy = GenerationType.IDENTITY)
+	  @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	    private Long id_pedido;
 
 	  @Column(nullable = false)
 	  private Long cantidad;
 	
 	 @Column(nullable = false)
-	  private double precio_unitario;
-	 @Column(nullable = false)
 	  private double precio_total;
 	 
-	 @OneToMany(mappedBy = "id_producto", cascade = CascadeType.ALL)
-	 private List<Productos> Productos;
+	 @ManyToMany
+	 @JoinTable(
+	        name = "pedidos_productos",
+	        joinColumns = @JoinColumn(name = "id_pedido"),
+	        inverseJoinColumns = @JoinColumn(name = "id_producto")
+	    )
+	 private List<Productos> productos;
+	 
+	 @ManyToOne
+	 @JoinColumn(name = "usuario_id")
+	 private Usuarios usuario;
+	
 
-
-
-
-	public Pedidos(Long id_pedido, Long cantidad, double precio_unitario, double precio_total,
-			List<Productos> productos) {
+	public Pedidos(Long cantidad, double precio_total, List<Productos> productos, Usuarios usuario) {
 		super();
-		this.id_pedido = id_pedido;
 		this.cantidad = cantidad;
-		this.precio_unitario = precio_unitario;
 		this.precio_total = precio_total;
-		Productos = productos;
+		this.productos = productos;
+		this.usuario = usuario;
 	}
+
+
+	public List<Productos> getProductos() {
+		return productos;
+	}
+
+
+	public void setProductos(List<Productos> productos) {
+		this.productos = productos;
+	}
+
+
+
+	public Usuarios getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuarios usuario) {
+		this.usuario = usuario;
+	}
+
 
 	public Long getId_pedido() {
 		return id_pedido;
@@ -55,13 +83,6 @@ public class Pedidos {
 		this.id_pedido = id_pedido;
 	}
 
-	public double getPrecio_unitario() {
-		return precio_unitario;
-	}
-
-	public void setPrecio_unitario(double precio_unitario) {
-		this.precio_unitario = precio_unitario;
-	}
 
 	public double getPrecio_total() {
 		return precio_total;
@@ -78,14 +99,6 @@ public class Pedidos {
 
 	public void setCantidad(Long cantidad) {
 		this.cantidad = cantidad;
-	}
-
-	public List<Productos> getProductos() {
-		return Productos;
-	}
-
-	public void setProductos(List<Productos> productos) {
-		Productos = productos;
 	}
 
 	public Pedidos() {

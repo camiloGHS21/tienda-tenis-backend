@@ -23,8 +23,8 @@ public class SecurityConfig  {
         .csrf().disable() // Deshabilitar CSRF si estás trabajando con APIs
         .authorizeHttpRequests(authorize -> authorize
             .requestMatchers(
-            		"/api/productos/**",
-            		"/api/cart/**",
+            		"/api/productos/ver_todos",
+            		"/api/productos/buscar",
             		"/api/usuarios/guardar"
             		).permitAll()
             .anyRequest().authenticated()

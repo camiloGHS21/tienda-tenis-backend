@@ -22,13 +22,16 @@ public class Productos {
  private String color;
  @Column(nullable = false)
  private String imagen;
-@Column(nullable = false)
+@Column(nullable = false, columnDefinition = "TEXT")
  private String descripcion;
  @Column(nullable = false)
  private double precio;
 
  @ManyToMany(mappedBy = "productos")
  private List<Carrito> carritos;
+ 
+ @OneToMany(mappedBy = "productos")
+ private List<Pedidos> pedidos; 
  
 public Long getId_producto() {
 	return id_producto;

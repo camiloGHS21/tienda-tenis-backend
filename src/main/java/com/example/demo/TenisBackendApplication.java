@@ -11,8 +11,7 @@ import com.example.demo.service.ServicioMiDetallesDeUsuario;
 @SpringBootApplication
 public class TenisBackendApplication implements CommandLineRunner{
 	
-	@Autowired
-	private  ServicioMiDetallesDeUsuario userDetailsService;
+	@Autowired  ServicioMiDetallesDeUsuario userDetailsService;
 	
 
 	

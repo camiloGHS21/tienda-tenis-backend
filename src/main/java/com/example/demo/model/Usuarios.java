@@ -1,7 +1,6 @@
 package com.example.demo.model;
 
 
-import java.util.List;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -26,11 +25,6 @@ private String email;
 
  @Column(nullable = false)
  private String tipo_de_usuario;
-
- @OneToMany(mappedBy = "id_pedido", cascade = CascadeType.ALL)
- private List<Pedidos> Pedidos;
-
-
 
  @OneToOne(cascade = CascadeType.ALL)
  @JoinColumn(name = "id_usuarioInfo", referencedColumnName = "id_usuarioInfo")
@@ -80,13 +74,13 @@ public Usuarios() {
 
 
 public Usuarios(@Email(message = "Por favor, introduce una dirección de correo electrónico válida") String email,
-		String password, String tipo_de_usuario, List<com.example.demo.model.Pedidos> pedidos,
+		String password, String tipo_de_usuario,
 		UsuariosInfo usuariosInfo, Carrito carrito) {
 	super();
 	this.email = email;
 	this.password = password;
 	this.tipo_de_usuario = tipo_de_usuario;
-	Pedidos = pedidos;
+
 	this.usuariosInfo = usuariosInfo;
 	this.carrito = carrito;
 }
@@ -110,19 +104,6 @@ public String getPassword() {
 public void setPassword(String password) {
 	this.password = password;
 }
-
-
-public List<Pedidos> getPedidos() {
-	return Pedidos;
-}
-
-
-public void setPedidos(List<Pedidos> pedidos) {
-	Pedidos = pedidos;
-}
-
-
-
 
 public String getTipo_de_usuario() {
     return tipo_de_usuario;
