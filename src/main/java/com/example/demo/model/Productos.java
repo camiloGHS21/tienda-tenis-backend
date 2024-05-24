@@ -30,7 +30,7 @@ public class Productos {
  @ManyToMany(mappedBy = "productos")
  private List<Carrito> carritos;
  
- @OneToMany(mappedBy = "productos")
+ @ManyToMany(mappedBy = "productos")
  private List<Pedidos> pedidos; 
  
 public Long getId_producto() {

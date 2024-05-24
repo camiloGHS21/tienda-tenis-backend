@@ -1,88 +1,65 @@
 package com.example.demo.model;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-
-
-public class PedidosTests {
+class PedidosTest {
 
     private Pedidos pedido;
+    private Usuarios usuario;
+    private List<Productos> productos;
 
-    @Before
-    public void setUp() {
-        pedido = new Pedidos();
+    @BeforeEach
+    void setUp() {
+        usuario = new Usuarios();
+        productos = new ArrayList<>();
+        pedido = new Pedidos(5L, 100.0, productos, usuario);
     }
 
     @Test
-    public void testSetAndGetIdPedido() {
-        Long idPedido = 1L;
-        pedido.setId_pedido(idPedido);
-
-        assertEquals(idPedido, pedido.getId_pedido());
-    }
-
-    @Test
-    public void testSetAndGetCantidad() {
-        Long cantidad = 5L;
-        pedido.setCantidad(cantidad);
-
-        assertEquals(cantidad, pedido.getCantidad());
-    }
-
-    @Test
-    public void testSetAndGetPrecioTotal() {
-        double precioTotal = 99.99;
-        pedido.setPrecio_total(precioTotal);
-
-        assertEquals(precioTotal, pedido.getPrecio_total(), 0.001);
-    }
-
-    @Test
-    public void testSetAndGetUsuario() {
-        Usuarios usuario = new Usuarios();
-        pedido.setUsuario(usuario);
-
-        assertNotNull(pedido.getUsuario());
-    }
-
-    @Test
-    public void testSetAndGetProductos() {
-        List<Productos> productos = new ArrayList<>();
-        Productos producto = new Productos();
-        productos.add(producto);
-        pedido.setProductos(productos);
-
-        assertNotNull(pedido.getProductos());
-        assertEquals(1, pedido.getProductos().size());
-    }
-
-    @Test
-    public void testConstructorWithParameters() {
-        Long cantidad = 5L;
-        double precioTotal = 99.99;
-        Usuarios usuario = new Usuarios();
-        List<Productos> productos = new ArrayList<>();
-        Productos producto = new Productos();
-        productos.add(producto);
-
-        Pedidos pedidoConParametros = new Pedidos(cantidad, precioTotal, usuario);
-        pedidoConParametros.setProductos(productos);
-
-        assertEquals(cantidad, pedidoConParametros.getCantidad());
-        assertEquals(precioTotal, pedidoConParametros.getPrecio_total(), 0.001);
-        assertNotNull(pedidoConParametros.getUsuario());
-        assertNotNull(pedidoConParametros.getProductos());
-        assertEquals(1, pedidoConParametros.getProductos().size());
-    }
-
-    @Test
-    public void testDefaultConstructor() {
+    void testConstructor() {
         assertNotNull(pedido);
+        assertEquals(5L, pedido.getCantidad());
+        assertEquals(100.0, pedido.getPrecio_total());
+        assertEquals(productos, pedido.getProductos());
+        assertEquals(usuario, pedido.getUsuario());
+    }
+
+    @Test
+    void testSetCantidad() {
+        pedido.setCantidad(10L);
+        assertEquals(10L, pedido.getCantidad());
+    }
+
+    @Test
+    void testSetPrecio_total() {
+        pedido.setPrecio_total(200.0);
+        assertEquals(200.0, pedido.getPrecio_total());
+    }
+
+    @Test
+    void testSetProductos() {
+        List<Productos> newProductos = new ArrayList<>();
+        pedido.setProductos(newProductos);
+        assertEquals(newProductos, pedido.getProductos());
+    }
+
+    @Test
+    void testSetUsuario() {
+        Usuarios newUsuario = new Usuarios();
+        pedido.setUsuario(newUsuario);
+        assertEquals(newUsuario, pedido.getUsuario());
+    }
+
+    @Test
+    void testSetId_pedido() {
+        pedido.setId_pedido(1L);
+        assertEquals(1L, pedido.getId_pedido());
     }
 }
